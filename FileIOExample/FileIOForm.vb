@@ -1,4 +1,8 @@
-﻿Public Class FileIOForm
+﻿
+Public Class FileIOForm
+
+    Dim fileName As String = "temp.acme"
+
     Private Sub ExitButton_Click(sender As Object, e As EventArgs) Handles ExitButton.Click
         'Me.Close()
         ReadFile()
@@ -12,7 +16,8 @@
     Sub WriteToFile()
 
         Dim fileNumber As Integer = FreeFile()
-        Dim fileName As String = "data.txt"
+        'Global filename gets updated if file not found
+        'Dim fileName As String = "data.txt"
 
         FileOpen(fileNumber, fileName, OpenMode.Append)
 
@@ -30,7 +35,7 @@
 
     Sub ReadFile()
         Dim fileNumber As Integer = FreeFile()
-        Dim fileName As String = "data.txt"
+        'Dim fileName As String = "data.txt"
         Dim currentRecord As String
 
         Try
@@ -50,4 +55,18 @@
 
     End Sub
 
+    Private Sub OpenToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OpenToolStripMenuItem.Click
+        OpenFileDialog.Filter() = "acme files (*.acme)|*.acme|txt files (*.txt)|*.txt|All files (*.*)|*.*"
+        OpenFileDialog.FileName = "acme_" & DateTime.Now.Year.ToString & DateTime.Now.Month.ToString & DateTime.Now.Day.ToString
+        OpenFileDialog.ShowDialog()
+        Me.fileName = OpenFileDialog.FileName
+    End Sub
+
+    Private Sub SaveToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SaveToolStripMenuItem.Click
+        'TODO
+    End Sub
+
+    Private Sub FileIOForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+    End Sub
 End Class
